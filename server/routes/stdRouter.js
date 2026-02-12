@@ -11,13 +11,16 @@ stdRouter.get('/', (req, res)=>{
 //signup std
 stdRouter.post('/signup', handleStdSignup)
 
+//login std
 stdRouter.post('/login', handleStdLogin)
 
-
+//get std
 stdRouter.get('/get', auth, getDetails)
 
+//updated  std
 stdRouter.patch('/update', auth, handleUpdatestdName)
 
+//updated password std
 stdRouter.patch('/updatepassword', auth, handleUpdatePassword)
 
 

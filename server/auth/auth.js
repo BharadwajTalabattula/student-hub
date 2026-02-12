@@ -8,9 +8,9 @@ const auth = async(req, res, next)=>{
             return res.status(401).json({message: "Provide token "});
         }
 
-        let payload = jwt.verify(token, "jsp") // jsp? verify?
+        let payload = jwt.verify(token, "jsp")
 
-        req.payload = payload; //?
+        req.payload = payload; 
         next();
 
     }catch(error){

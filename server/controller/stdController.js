@@ -18,9 +18,9 @@ const handleStdSignup = async(req, res) =>{
             return res.status(409).json({message: "stdent with this email already exsits"})
         }
 
-        const hashedPass = await bcrypt.hash(password, 10) // why bcrypt what is hash
+        const hashedPass = await bcrypt.hash(password, 10) 
 
-        const isCreated = await STD.insertOne({ email, name, age, password: hashedPass}) //STD. insert how?
+        const isCreated = await STD.insertOne({ email, name, age, password: hashedPass}) 
 
         console.log(isCreated);
 
@@ -34,7 +34,7 @@ const handleStdSignup = async(req, res) =>{
 
 const handleStdLogin = async(req, res)=>{
     try{
-        if(req.body === undefined){ // why check undefined
+        if(req.body === undefined){ 
             return res.status(400).json({message: "details are mandatory to login student account"})
         }
         const { email, password } = req.body;
@@ -58,7 +58,7 @@ const handleStdLogin = async(req, res)=>{
 
         }
 
-        const token = jwt.sign({ email, _id: isStd._id}, "jsp", { // why token , what it generate, what is the flow
+        const token = jwt.sign({ email, _id: isStd._id}, "jsp", { 
              expiresIn: '1h' // how 1hr works
         })
 
@@ -71,8 +71,8 @@ const handleStdLogin = async(req, res)=>{
 
 const getDetails = async(req, res)=>{
     try{
-        const { _id } = req.payload // why? what is _id
-        const isStd = await STD.findById({ _id }, { password: 0}) // why password
+        const { _id } = req.payload 
+        const isStd = await STD.findById({ _id }, { password: 0}) 
 
         if(!isStd){
             return res.status(401).json({message: "Token not valid because acount deleted"})
@@ -87,14 +87,14 @@ const getDetails = async(req, res)=>{
 
 const handleUpdatestdName = async (req, res) => {
     try{
-        const { _id } = req.payload; // why id and payload
+        const { _id } = req.payload; 
 
         if(req.body === undefined){
             return res.status(400).json({ message: "details are mandatory to login student account" })
-        } // why checking body?
+        } 
 
         const { name } = req.body;
-        const isStd = await STD.findById({ _id }) // why checking based on id
+        const isStd = await STD.findById({ _id }) 
 
         if (!isStd){
             return res.status(401).json({ message: "token not valid because account deleted" })
@@ -109,7 +109,7 @@ const handleUpdatestdName = async (req, res) => {
         }
 
         isStd.name = name;
-        await isStd.save();// save()?
+        await isStd.save();
         return res.status(200).json({ message : "name updated successfully" })
 
     }catch(error){
